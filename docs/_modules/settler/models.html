@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>settler.models &mdash; Tapestry  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Tapestry
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">System overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../running.html">Running the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design.html">System design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../related-work.html">Related work</a></li>
+</ul>
+<p class="caption"><span class="caption-text">System modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../clearer.html">Clearer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../settler.html">Settler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impsepa.html">SEPA IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../impsic.html">SIC IMP</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Tapestry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>settler.models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for settler.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core</span> <span class="kn">import</span> <span class="n">validators</span>
+
+<span class="c1"># FIXME: Add UUID for all the models for reference in RESTful APIs.</span>
+
+<span class="c1"># FIXME: This double-entry accounting module should be moved into a</span>
+<span class="c1"># separate app called &#39;pacioli&#39; that can be used by Settler or</span>
+<span class="c1"># something else. Name coming from Luca Pacioli of Summa Arithmetica</span>
+<span class="c1"># fame. [We actually have &#39;ledger&#39; reserved for this already&#39;, and it</span>
+<span class="c1"># makes more sense in being very understandable. Keep only &#39;tapestry&#39;</span>
+<span class="c1"># as something _weird_.]</span>
+
+<div class="viewcode-block" id="TransactionManager"><a class="viewcode-back" href="../../api/settler.html#settler.admin.TransactionManager">[docs]</a><span class="k">class</span> <span class="nc">TransactionManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TransactionManager.add_transaction"><a class="viewcode-back" href="../../api/settler.html#settler.admin.TransactionManager.add_transaction">[docs]</a>    <span class="k">def</span> <span class="nf">add_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">currency</span><span class="p">,</span> <span class="n">transfers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a single Transaction where &#39;currency&#39; is the Transaction</span>
+<span class="sd">        currency, and &#39;transfers&#39; is a list of data to create Transfer</span>
+<span class="sd">        objects with keys &#39;account&#39;, &#39;amount&#39; and &#39;description&#39;. The</span>
+<span class="sd">        &#39;account&#39; is an Account.handle. The Account is created if it</span>
+<span class="sd">        doesn&#39;t exist. The amounts of all Transfers must add up to a</span>
+<span class="sd">        zero. Returns the created Transaction.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># FIXME: Run in a database transaction!</span>
+
+        <span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+        <span class="n">transfer_sum</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">()</span>
+
+        <span class="c1"># Create the Transaction to hold the Transfers</span>
+        <span class="n">tx</span> <span class="o">=</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">currency</span><span class="o">=</span><span class="n">currency</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create the Transfers</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transfers</span><span class="p">:</span>
+            <span class="n">account</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">handle</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;account&#39;</span><span class="p">],</span>
+                <span class="n">currency</span><span class="o">=</span><span class="n">tx</span><span class="o">.</span><span class="n">currency</span><span class="p">,</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">amount</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">])</span>
+            <span class="n">Transfer</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">transaction</span><span class="o">=</span><span class="n">tx</span><span class="p">,</span>
+                <span class="n">account</span><span class="o">=</span><span class="n">account</span><span class="p">,</span>
+                <span class="n">amount</span><span class="o">=</span><span class="n">amount</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">transfer_sum</span> <span class="o">+=</span> <span class="n">amount</span>
+
+        <span class="k">if</span> <span class="n">transfer_sum</span><span class="p">:</span>
+            <span class="c1"># FIXME: Is there a more Django native exception to raise?</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Transfers of a Transaction must sum to zero&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tx</span></div></div>
+
+<div class="viewcode-block" id="Transaction"><a class="viewcode-back" href="../../api/settler.html#settler.admin.Transaction">[docs]</a><span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Transaction represents a single accounting journal entry that</span>
+<span class="sd">    groups together one or more debits and credits on Accounts as</span>
+<span class="sd">    represented by Transfers.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># FIXME: We do not have validation on database level that the</span>
+    <span class="c1"># Transfers of a Transaction sum to zero.</span>
+
+    <span class="n">currency</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">validators</span><span class="o">.</span><span class="n">MinLengthValidator</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">validators</span><span class="o">.</span><span class="n">MaxLengthValidator</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">TransactionManager</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currency</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">CheckConstraint</span><span class="p">(</span><span class="n">check</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">currency__regex</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^[A-Z]</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">),</span>
+                                   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;transaction_currency_regex_alpha3&#39;</span><span class="p">),</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="Transfer"><a class="viewcode-back" href="../../api/settler.html#settler.admin.Transfer">[docs]</a><span class="k">class</span> <span class="nc">Transfer</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Transfer is a single debit or a credit on an Account. Multiple</span>
+<span class="sd">    Transfers are grouped together by a Transaction to form a single</span>
+<span class="sd">    accounting journal entry. Positive amounts represent debits and</span>
+<span class="sd">    negative amounts credits.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;settler.Account&quot;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">)</span>
+    <span class="n">transaction</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;settler.Transaction&quot;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">)</span>
+    <span class="n">amount</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">max_digits</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Account"><a class="viewcode-back" href="../../api/settler.html#settler.admin.Account">[docs]</a><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An Account is an accounting account on which sums can be debited or</span>
+<span class="sd">    credited by a Transfer. Each Account is addressable by a unique</span>
+<span class="sd">    handle.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">currency</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">validators</span><span class="o">.</span><span class="n">MinLengthValidator</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">validators</span><span class="o">.</span><span class="n">MaxLengthValidator</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Account.get_balance"><a class="viewcode-back" href="../../api/settler.html#settler.admin.Account.get_balance">[docs]</a>    <span class="k">def</span> <span class="nf">get_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+        <span class="c1"># FIXME: There must be a more elegant way to do this!</span>
+        <span class="k">return</span> <span class="n">Account</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">balance</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;transfer__amount&#39;</span><span class="p">))[</span><span class="s1">&#39;balance&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Decimal</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">currency</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">CheckConstraint</span><span class="p">(</span><span class="n">check</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Q</span><span class="p">(</span><span class="n">currency__regex</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^[A-Z]</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">),</span>
+                                   <span class="n">name</span><span class="o">=</span><span class="s1">&#39;accoount_currency_regex_alpha3&#39;</span><span class="p">),</span>
+        <span class="p">]</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020 Tuomas Toivonen
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

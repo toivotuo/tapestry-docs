@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>router.management.commands.import_separouting &mdash; Tapestry  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> Tapestry
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">System overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../running.html">Running the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../design.html">System design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../related-work.html">Related work</a></li>
+</ul>
+<p class="caption"><span class="caption-text">System modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../clearer.html">Clearer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../settler.html">Settler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impsepa.html">SEPA IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../impsic.html">SIC IMP</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Tapestry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>router.management.commands.import_separouting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for router.management.commands.import_separouting</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Import a SWIFTRef &#39;SEPAROUTING&#39; V3 file to the Router.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../api/router.management.commands.html#router.management.commands.import_separouting.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Import a &#39;SEPAROUTING&#39; data file as XML&quot;</span>
+
+<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../api/router.management.commands.html#router.management.commands.import_separouting.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Name of the &#39;SEPAROUTING&#39; XML file to import&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../api/router.management.commands.html#router.management.commands.import_separouting.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read the &#39;SEPAROUTING&#39; XML file with PyXB bindings, mangle the data</span>
+<span class="sd">        records a bit, and create a SepaRoute in the database for each</span>
+<span class="sd">        routing entry from the XML.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">router.xsd</span> <span class="kn">import</span> <span class="n">separouting_v3</span>
+        <span class="kn">from</span> <span class="nn">router.forms</span> <span class="kn">import</span> <span class="n">SepaRouteForm</span>
+        <span class="kn">from</span> <span class="nn">tapestry.constants</span> <span class="kn">import</span> <span class="n">PaymentScheme</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">separouting_v3</span><span class="o">.</span><span class="n">CreateFromDocument</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+        <span class="c1"># FIXME: Do this in a database transaction to make the</span>
+        <span class="c1"># importing of the whole file atomic.</span>
+
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">separouting_v3</span><span class="p">:</span>
+            <span class="c1"># FIXME: As we only support new entries and not the delta</span>
+            <span class="c1"># files with changes, there should be a check on whether</span>
+            <span class="c1"># entry with the same record key exists and then data just</span>
+            <span class="c1"># should be updated.</span>
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">modification_flag</span> <span class="o">!=</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to import record </span><span class="si">%s</span><span class="s2"> with unknown modification flag: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                               <span class="n">entry</span><span class="o">.</span><span class="n">record_key</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">modification_flag</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">start_date</span>
+            <span class="k">if</span> <span class="n">start_date</span><span class="p">:</span>
+                <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">start_date</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span>
+                                           <span class="nb">int</span><span class="p">(</span><span class="n">start_date</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]),</span>
+                                           <span class="nb">int</span><span class="p">(</span><span class="n">start_date</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]))</span>
+            <span class="n">reachability_type</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">reachability</span>
+            <span class="k">if</span> <span class="n">reachability_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reachability_type</span> <span class="o">=</span> <span class="s1">&#39;unknown&#39;</span>
+            <span class="k">elif</span> <span class="n">reachability_type</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+                <span class="n">reachability_type</span> <span class="o">=</span> <span class="s1">&#39;direct&#39;</span>
+            <span class="k">elif</span> <span class="n">reachability_type</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">:</span>
+                <span class="n">reachability_type</span> <span class="o">=</span> <span class="s1">&#39;indirect&#39;</span>
+            <span class="n">scheme_types</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;SCT&#39;</span><span class="p">:</span> <span class="n">PaymentScheme</span><span class="o">.</span><span class="n">EU_SEPA_SCT</span><span class="p">,</span>
+                <span class="s1">&#39;SDD CORE&#39;</span><span class="p">:</span> <span class="n">PaymentScheme</span><span class="o">.</span><span class="n">EU_SEPA_SDDCORE</span><span class="p">,</span>
+                <span class="s1">&#39;SDD B2B&#39;</span><span class="p">:</span> <span class="n">PaymentScheme</span><span class="o">.</span><span class="n">EU_SEPA_SDDB2B</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;scheme&#39;</span><span class="p">:</span> <span class="n">scheme_types</span><span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">scheme</span><span class="p">],</span>
+                <span class="s1">&#39;external_key&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">record_key</span><span class="p">,</span>
+                <span class="s1">&#39;bic&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">bic</span><span class="p">,</span>
+                <span class="s1">&#39;psp_name&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">institution_name</span><span class="p">,</span>
+                <span class="s1">&#39;psp_city&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">city</span><span class="p">,</span>
+                <span class="s1">&#39;psp_country&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">iso_country_code</span><span class="p">,</span>
+                <span class="s1">&#39;reachable_via&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">payment_channel_id</span><span class="p">,</span>
+                <span class="s1">&#39;reachability_type&#39;</span><span class="p">:</span> <span class="n">reachability_type</span><span class="p">,</span>
+                <span class="s1">&#39;intermediary_bic&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">intermediary_institution_bic</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;preferred_route&#39;</span><span class="p">:</span> <span class="n">entry</span><span class="o">.</span><span class="n">preferred_channel_flag</span> <span class="o">==</span> <span class="s1">&#39;P&#39;</span> <span class="ow">and</span> <span class="kc">True</span> <span class="ow">or</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s1">&#39;valid_from&#39;</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+                <span class="s1">&#39;valid_to&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">SepaRouteForm</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to add SEPA route &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                               <span class="n">entry</span><span class="o">.</span><span class="n">record_key</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+                <span class="k">continue</span>
+            <span class="n">route</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Added SEPA route &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">route</span><span class="o">.</span><span class="n">external_key</span><span class="p">,</span> <span class="n">route</span><span class="o">.</span><span class="n">bic</span><span class="p">,</span> <span class="n">route</span><span class="o">.</span><span class="n">reachable_via</span><span class="p">,</span> <span class="n">route</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Successfully imported file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">(</span><span class="n">message</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020 Tuomas Toivonen
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

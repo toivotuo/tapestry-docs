@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development &mdash; Tapestry  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Related work" href="related-work.html" />
+    <link rel="prev" title="IMPLEMENTATION" href="implementation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Tapestry
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">System overview</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">IMPLEMENTATION</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-style-guide">Code style guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-conventions">Documentation conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-process-issues">Development process issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-improvements">Documentation improvements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
+</ul>
+<p class="caption"><span class="caption-text">System modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Tapestry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Development</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we describe the development conventions and tools
+used for Tapestry. Keeping good documentation “hygiene” is always
+paramount for maintainable code!</p>
+<p>The Python packages used to implement the development conventions
+below can be installed with a requirements file a the top level of the
+‘tapestry’ repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">-</span><span class="n">dev</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="section" id="code-style-guide">
+<h2>Code style guide<a class="headerlink" href="#code-style-guide" title="Permalink to this headline">¶</a></h2>
+<p>As a Python code style the <a class="reference external" href="https://google.github.io/styleguide/pyguide.html">Google Python Style Guide</a> is
+adopted. The Google style guide is followed both in how the code is
+formatted as well as with documenting the Python code with docstrings.</p>
+<p>Code conformance to the Google style guide can be checked with
+‘flake8’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">flake8</span> <span class="o">--</span><span class="n">docstring</span><span class="o">-</span><span class="n">convention</span><span class="o">=</span><span class="n">google</span> <span class="n">FILENAME</span>
+</pre></div>
+</div>
+<p>Likewise, ‘pylint’ can be used, but by default pylint does not follow
+the Google style guide. Custom .pylintrc would be required.</p>
+<p>Automatic formatting of code to conform with the Google style guide
+can be achieved with '<a class="reference external" href="https://pypi.org/project/yapf/">yapf</a>' (add -i to rewrite the file in-place):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yapf</span> <span class="o">--</span><span class="n">style</span><span class="o">=</span><span class="n">google</span> <span class="n">FILENAME</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation-conventions">
+<h2>Documentation conventions<a class="headerlink" href="#documentation-conventions" title="Permalink to this headline">¶</a></h2>
+<p>The Google style guide should be followed for documentation of the
+code in docstrings.</p>
+<p>For documentation that is not written in docstrings, Sphinx is
+used. The ‘autodoc’ facility of Sphinx is also used to pull the
+documentation from docstrings and produce browsable code
+documentation.</p>
+<p>Starting from the ‘tapestry’ repository root, documentation as HTML
+can be produced with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docs</span>
+<span class="o">./</span><span class="n">run</span><span class="o">-</span><span class="n">apidoc</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>Built documentation will be available in ‘_build/html’ in the
+repository root.</p>
+</div>
+<div class="section" id="development-process-issues">
+<h2>Development process issues<a class="headerlink" href="#development-process-issues" title="Permalink to this headline">¶</a></h2>
+<p>Coverage ratio of tests for the code can be run with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">coverage</span> <span class="n">run</span> <span class="o">--</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;.&#39;</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span>
+<span class="n">coverage</span> <span class="n">report</span>
+</pre></div>
+</div>
+<p>However, as the code currently has limited to no documentation, code
+coverage is somewhat beside the point. Unit testing setup with Django
+native facilities and ‘pytest’ have also not yet been setup.</p>
+</div>
+<div class="section" id="documentation-improvements">
+<h2>Documentation improvements<a class="headerlink" href="#documentation-improvements" title="Permalink to this headline">¶</a></h2>
+<p>A number of documentation process improvements are planned:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Generate and publish documents as GitHub Pages with the Sphinx
+‘sphinx.ext.githubpages’ extension.</p></li>
+<li><p>Use the Sphinx ‘sphinx.ext.todo’ extension to publish a clear list
+of the FIXME and TODO notes from the code as a list of
+improvements to be done.</p></li>
+<li><p>Documentation coverage checks with Sphinx.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="related-work.html" class="btn btn-neutral float-right" title="Related work" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="implementation.html" class="btn btn-neutral float-left" title="IMPLEMENTATION" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020 Tuomas Toivonen
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
