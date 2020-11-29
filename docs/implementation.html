@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>System implementation &mdash; Tapestry  documentation</title>
+  <title>Implementation &mdash; Tapestry  documentation</title>
   
 
   
@@ -87,7 +87,10 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">System implementation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#django-features">Django features</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -96,8 +99,12 @@
 <li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -144,7 +151,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>System implementation</li>
+      <li>Implementation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -163,9 +170,74 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="system-implementation">
-<h1>System implementation<a class="headerlink" href="#system-implementation" title="Permalink to this headline">¶</a></h1>
-<p>FIXME: Nothing to see here yet.</p>
+  <div class="section" id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h1>
+<p>As the implementation language for Tapestry, <a class="reference external" href="https://www.python.org/">Python</a> (version 3.7.X)
+was selected. Python was selected in part due to the author’s
+familiarity with the language and due to Python being a widely adopted
+and approachable language with extensive standard library and
+third-party open source libraries. A ‘requirements.txt’ is provided in
+the GitHub repository that documents the third-party libraries used.</p>
+<p>The <a class="reference external" href="https://www.djangoproject.com/">Django</a> (version 3.1.X) web development framework was selected to
+provide the core structure for Tapestry. Django is a free and open
+source framework that easy to understand yet provides an extensive set
+of features as standard. Like Python, Django has a thriving ecosystem
+of open source libraries that allow extending its functionalities.</p>
+<p>Both Python and Django support rapid experimentation and
+prototyping. This can be considered as a core asset in light of the
+nature of Tapestry as a payments router prototype.</p>
+<p>As its nature is as a prototype, the implementation of Tapestry is not
+complete for a running payments router that could be connected to
+payment systems processing payment transactions with “real money”.</p>
+<div class="section" id="django-features">
+<h2>Django features<a class="headerlink" href="#django-features" title="Permalink to this headline">¶</a></h2>
+<p>While Tapestry is not a “web application” as such, the core features
+of Django are applicable for Tapestry. The primary Django features
+used in Tapestry are as follows:</p>
+<dl class="simple">
+<dt>Django models and ORM</dt><dd><p>Django comes with a powerful object relational
+mapper (ORM). With the ORM, Django translates Python classes
+derived from a Django model base class and constructed with special
+formatting to SQL queries. The ORM can be connected to a number of
+database backends through which Django supports various relational
+database management systems (RDBMS). For example, for Tapestry
+testing, the easy to use SQLite RDBMS can be used. Any production
+implementation developed from the Tapestry prototype could use,
+for example, the powerful PostgreSQL RDBMS. The core objects of
+Tapestry, for example, a “payment account”, are expressed as
+Django models and accessed through the Django ORM.</p>
+</dd>
+<dt>Django admin views</dt><dd><p>Django provides a builtin feature for the easy construction of
+web-based administrative interfaces to applications. With the
+Django admin views an operations console can be rapidly
+constructed. An operations console is a requirement for production
+operations of a payments router. In a prototype like Tapestry, an
+operations console can be used to interactively explore the state
+of the payments router database to inspect the processing of
+payments messages.</p>
+</dd>
+<dt>Django signals</dt><dd><p>Django provides an efficient signals framework implementing the
+publish-subscribe (pubsub) paradigm. Signals can be defined and
+then listeners subscribed to the signals. When signals are invoked
+(published) the signal payload is passed to all the
+listeners. Even in a monolithic Django application the signals
+framework allows the development of clean boundaries between
+modules. An event driven architecture can be implemented with some
+ease. In a more production ready implementation a Kafka event log
+or other pubsub facility could be used to provide more
+distribution and scalability than can be achieved with a
+monolithic Django application.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Django REST Framework</dt><dd><p>A third-party library, the <a class="reference external" href="https://www.django-rest-framework.org/">Django REST Framework</a> (DRF) provides
+powerful facilities to construct APIs using the “representational
+state transfer” or REST paradigm. Using DRF, external interfaces
+to expose functionalities of Tapestry to PSU customers and to
+other PSPs.</p>
+</dd>
+</dl>
+</div>
 </div>
 
 

@@ -48,3 +48,11 @@ settler.migrations.0005\_auto\_20200921\_1945 module
    :members:
    :undoc-members:
    :show-inheritance:
+
+settler.migrations.0006\_auto\_20201128\_2245 module
+----------------------------------------------------
+
+.. automodule:: settler.migrations.0006_auto_20201128_2245
+   :members:
+   :undoc-members:
+   :show-inheritance:

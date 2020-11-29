@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -95,11 +95,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Router</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Router</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reachability-and-routing">Reachability and routing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clearing-and-settlement">Clearing and settlement</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -167,7 +173,61 @@
             
   <div class="section" id="router">
 <h1>Router<a class="headerlink" href="#router" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘router’ app is left as future work.</p>
+<p>The Router component sends and receives payment messages with a
+generic routing header from the IMP components. It is the
+responsibility of the Router to use the data from the routing header
+to make decisions on where to route each payment message.</p>
+<div class="section" id="reachability-and-routing">
+<h2>Reachability and routing<a class="headerlink" href="#reachability-and-routing" title="Permalink to this headline">¶</a></h2>
+<p>The Router is aware of reachability to other PSPs through the
+ingestion of reach and routing tables provided by other PSPs or CSMs
+that a PSP running Tapestry is connected with. In the current
+implementation of Tapestry a SepaRoute model is maintained in the
+Router. Each SepaRoute instance describes a single route to a PSP
+(represented by a BIC8 or a BIC11).</p>
+<p>Routing tables can be ingested using Django management commands from
+upstream CSMs as described below. Each routing table entry creates a
+SepaRoute in Tapestry.</p>
+<dl class="simple">
+<dt>import-separouting.py</dt><dd><p>Ingests “SEPAROUTING” XML files provided as part of the SWIFT
+reference data “SEPA Plus” service. The file format lists
+reachable BICs and which SEPA payment schemes the BICs have
+adhered to, and through which CSMs the BIC can be reached. The
+Tapestry implementation uses the <a class="reference external" href="https://pabigot.github.io/pyxb/">PyXB</a> library to create Python
+bindings for an XSD.</p>
+</dd>
+<dt>import-scldirectory.py</dt><dd><p>Ingests the SCL-Directory XML file with <a class="reference external" href="https://pabigot.github.io/pyxb/">PyXB</a> bindings for the
+rocs.001.001.006 reach table format. The SCL-Directory only
+contains PSPs reachable through the Deutsche Bundesbank operated
+SEPA-Clearer SEPA CSM. However, as the SEPA-Clearer peers with the
+STEP2 PE-CSM, the coverage of reachable PSPs in the SCL-Directory
+is comprehensive.</p>
+</dd>
+<dt>import-tipsreach.py</dt><dd><p>Ingests the TARGET Instant Payment Settlement (TIPS) CSM
+informative participants and reachable parties data file for SEPA
+SCT Inst. Useful for illustrating the reach of TIPS, but not for
+production payments routing purposes. For this the actual TIPS
+Directory available to participants from the ECB should be
+used. The data file is delivered as an Excel file and a Python
+library is used to parse the file and extract routing
+entries.</p>
+</dd>
+</dl>
+<p>In terms of the richness of routing data, SEPAROUTING and
+SCL-Directory data files are comprehensive, but the TIPS data file only
+describes BICs that are reachable via the TIPS CSM. It should also be
+noted that SEPAROUTING and SCL-Directory data files cover SEPA SCT
+while the TIPS data file covers SEPA SCT Inst.</p>
+</div>
+<div class="section" id="clearing-and-settlement">
+<h2>Clearing and settlement<a class="headerlink" href="#clearing-and-settlement" title="Permalink to this headline">¶</a></h2>
+<p>As part of the routing process the Router makes calls to the Clearer
+and Settler components in order to execute the clearing and settling
+actions of payment transaction processing.</p>
+<p>After a payment is successfully routed, the Router sends returns it to
+the relevant IMP for delivery to a PSP or PSU through the IMP and the
+FEX components.</p>
+</div>
 </div>
 
 

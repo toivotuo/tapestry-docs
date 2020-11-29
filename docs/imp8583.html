@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8585 IMP &mdash; Tapestry  documentation</title>
+  <title>8583 IMP &mdash; Tapestry  documentation</title>
   
 
   
@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -96,10 +96,11 @@
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8585 IMP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8583 IMP</a></li>
 </ul>
 
             
@@ -146,7 +147,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>8585 IMP</li>
+      <li>8583 IMP</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -166,8 +167,25 @@
            <div itemprop="articleBody">
             
   <div class="section" id="imp">
-<h1>8585 IMP<a class="headerlink" href="#imp" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘imp8583’ app is left as future work.</p>
+<h1>8583 IMP<a class="headerlink" href="#imp" title="Permalink to this headline">¶</a></h1>
+<p>The 8583 IMP is a planned implementation of an Interface Message
+Processor (IMP) to support authorisation, clearing and settlement of
+card payments. Compared to the other two IMPs (SEPA and SIC), the 8583
+IMP must support pull, not push, payment instruments.</p>
+<p>In a card payment transaction, the first step is an authorisation from
+the payee PSU to the payer’s PSP. The authorisation must be routed in
+real-time through the FEX to the 8583 IMP and over to the Router. If
+Tapestry is run as the payer’s PSP, then the Router must call the
+Ledger to make an authorisation on the payer’s payment account.</p>
+<p>If Tapestry is run as the PSP for the payee PSU, then the Router must
+forward the authorisation request over to the payment infrastructure
+of the relevant payment scheme such as Visa or Mastercard. The
+authorisation request would thus pass the FEX and the 8583 IMP twice
+making this a performance critical activity.</p>
+<p>Whether Tapestry could be adapted to support credit transfer payments
+such as for the SEPA and SIC IMPs as well as card payments with the
+8583 IMP is an open question and to be explored in further research
+and development work.</p>
 </div>
 
 

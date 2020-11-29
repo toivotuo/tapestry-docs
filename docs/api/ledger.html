@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../related-work.html">Related work</a></li>
 </ul>
@@ -95,10 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../impsic.html">SIC IMP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../imp8583.html">8585 IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -170,7 +171,11 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ledger.migrations.html">ledger.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ledger.migrations.html">ledger.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ledger.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ledger.migrations.html#module-ledger.migrations.0001_initial">ledger.migrations.0001_initial module</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -179,6 +184,70 @@
 </div>
 <div class="section" id="module-ledger.admin">
 <span id="ledger-admin-module"></span><h2>ledger.admin module<a class="headerlink" href="#module-ledger.admin" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ledger.admin.AccountAdmin">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.admin.</code><code class="sig-name descname">AccountAdmin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">admin_site</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/admin.html#AccountAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.admin.AccountAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.admin.options.ModelAdmin</span></code></p>
+<dl class="py method">
+<dt id="ledger.admin.AccountAdmin.balance">
+<code class="sig-name descname">balance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/admin.html#AccountAdmin.balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.admin.AccountAdmin.balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.admin.AccountAdmin.list_display">
+<code class="sig-name descname">list_display</code><em class="property"> = ('pk', 'handle', 'currency', &lt;function AccountAdmin.balance&gt;)</em><a class="headerlink" href="#ledger.admin.AccountAdmin.list_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.admin.AccountAdmin.list_filter">
+<code class="sig-name descname">list_filter</code><em class="property"> = ('currency',)</em><a class="headerlink" href="#ledger.admin.AccountAdmin.list_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ledger.admin.AccountAdmin.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#ledger.admin.AccountAdmin.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ledger.admin.TransactionAdmin">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.admin.</code><code class="sig-name descname">TransactionAdmin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">admin_site</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/admin.html#TransactionAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.admin.TransactionAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.admin.options.ModelAdmin</span></code></p>
+<dl class="py attribute">
+<dt id="ledger.admin.TransactionAdmin.inlines">
+<code class="sig-name descname">inlines</code><em class="property"> = (&lt;class 'ledger.admin.TransferInline'&gt;,)</em><a class="headerlink" href="#ledger.admin.TransactionAdmin.inlines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.admin.TransactionAdmin.list_display">
+<code class="sig-name descname">list_display</code><em class="property"> = ('pk', 'currency', 'description')</em><a class="headerlink" href="#ledger.admin.TransactionAdmin.list_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ledger.admin.TransactionAdmin.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#ledger.admin.TransactionAdmin.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ledger.admin.TransferInline">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.admin.</code><code class="sig-name descname">TransferInline</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_model</span></em>, <em class="sig-param"><span class="n">admin_site</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/admin.html#TransferInline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.admin.TransferInline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.admin.options.TabularInline</span></code></p>
+<dl class="py method">
+<dt id="ledger.admin.TransferInline.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#ledger.admin.TransferInline.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.admin.TransferInline.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#ledger.admin.TransferInline.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#ledger.models.Transfer" title="ledger.models.Transfer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ledger.models.Transfer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-ledger.apps">
 <span id="ledger-apps-module"></span><h2>ledger.apps module<a class="headerlink" href="#module-ledger.apps" title="Permalink to this headline">¶</a></h2>
@@ -196,6 +265,243 @@
 </div>
 <div class="section" id="module-ledger.models">
 <span id="ledger-models-module"></span><h2>ledger.models module<a class="headerlink" href="#module-ledger.models" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ledger.models.Account">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.models.</code><code class="sig-name descname">Account</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#Account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.Account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>An Account is an accounting account on which sums can be debited or
+credited by a Transfer. Each Account is addressable by a unique
+handle.</p>
+<dl class="py exception">
+<dt id="ledger.models.Account.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#ledger.models.Account.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="ledger.models.Account.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#ledger.models.Account.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.currency">
+<code class="sig-name descname">currency</code><a class="headerlink" href="#ledger.models.Account.currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#ledger.models.Account.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ledger.models.Account.get_balance">
+<code class="sig-name descname">get_balance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#Account.get_balance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.Account.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.handle">
+<code class="sig-name descname">handle</code><a class="headerlink" href="#ledger.models.Account.handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#ledger.models.Account.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.objects">
+<code class="sig-name descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#ledger.models.Account.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Account.transfer_set">
+<code class="sig-name descname">transfer_set</code><a class="headerlink" href="#ledger.models.Account.transfer_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ledger.models.Transaction">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.models.</code><code class="sig-name descname">Transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#Transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.Transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>A Transaction represents a single accounting journal entry that
+groups together one or more debits and credits on Accounts as
+represented by Transfers.</p>
+<dl class="py exception">
+<dt id="ledger.models.Transaction.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#ledger.models.Transaction.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="ledger.models.Transaction.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#ledger.models.Transaction.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transaction.currency">
+<code class="sig-name descname">currency</code><a class="headerlink" href="#ledger.models.Transaction.currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transaction.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#ledger.models.Transaction.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transaction.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#ledger.models.Transaction.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transaction.objects">
+<code class="sig-name descname">objects</code><em class="property"> = &lt;ledger.models.TransactionManager object&gt;</em><a class="headerlink" href="#ledger.models.Transaction.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transaction.transfer_set">
+<code class="sig-name descname">transfer_set</code><a class="headerlink" href="#ledger.models.Transaction.transfer_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ledger.models.TransactionManager">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.models.</code><code class="sig-name descname">TransactionManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#TransactionManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.TransactionManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.manager.Manager</span></code></p>
+<dl class="py method">
+<dt id="ledger.models.TransactionManager.add_transaction">
+<code class="sig-name descname">add_transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">currency</span></em>, <em class="sig-param"><span class="n">transfers</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#TransactionManager.add_transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.TransactionManager.add_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a single Transaction where ‘currency’ is the Transaction
+currency, and ‘transfers’ is a list of data to create Transfer
+objects with keys ‘account’, ‘amount’ and ‘description’. The
+‘account’ is an Account.handle. The Account is created if it
+doesn’t exist. The amounts of all Transfers must add up to a
+zero. Returns the created Transaction.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ledger.models.Transfer">
+<em class="property">class </em><code class="sig-prename descclassname">ledger.models.</code><code class="sig-name descname">Transfer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ledger/models.html#Transfer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ledger.models.Transfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>A Transfer is a single debit or a credit on an Account. Multiple
+Transfers are grouped together by a Transaction to form a single
+accounting journal entry. Positive amounts represent debits and
+negative amounts credits.</p>
+<dl class="py exception">
+<dt id="ledger.models.Transfer.DoesNotExist">
+<em class="property">exception </em><code class="sig-name descname">DoesNotExist</code><a class="headerlink" href="#ledger.models.Transfer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="ledger.models.Transfer.MultipleObjectsReturned">
+<em class="property">exception </em><code class="sig-name descname">MultipleObjectsReturned</code><a class="headerlink" href="#ledger.models.Transfer.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.account">
+<code class="sig-name descname">account</code><a class="headerlink" href="#ledger.models.Transfer.account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.account_id">
+<code class="sig-name descname">account_id</code><a class="headerlink" href="#ledger.models.Transfer.account_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.amount">
+<code class="sig-name descname">amount</code><a class="headerlink" href="#ledger.models.Transfer.amount" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#ledger.models.Transfer.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#ledger.models.Transfer.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.objects">
+<code class="sig-name descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#ledger.models.Transfer.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.transaction">
+<code class="sig-name descname">transaction</code><a class="headerlink" href="#ledger.models.Transfer.transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ledger.models.Transfer.transaction_id">
+<code class="sig-name descname">transaction_id</code><a class="headerlink" href="#ledger.models.Transfer.transaction_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-ledger.tests">
 <span id="ledger-tests-module"></span><h2>ledger.tests module<a class="headerlink" href="#module-ledger.tests" title="Permalink to this headline">¶</a></h2>

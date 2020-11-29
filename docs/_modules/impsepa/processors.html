@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../related-work.html">Related work</a></li>
 </ul>
@@ -95,10 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../impsic.html">SIC IMP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../imp8583.html">8585 IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -165,58 +166,16 @@
   <h1>Source code for impsepa.processors</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Processors for the SEPA.</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">fex.models</span> <span class="kn">import</span> <span class="n">Message</span>
+<span class="kn">from</span> <span class="nn">tapestry.imp</span> <span class="kn">import</span> <span class="n">MessageProcessor</span>
+<span class="kn">from</span> <span class="nn">tapestry.imp</span> <span class="kn">import</span> <span class="n">MessageProcessorError</span>
 
 
-<div class="viewcode-block" id="ProcessorError"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.ProcessorError">[docs]</a><span class="k">class</span> <span class="nc">ProcessorError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="SEPAProcessor"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.SEPAProcessor">[docs]</a><span class="k">class</span> <span class="nc">SEPAProcessor</span><span class="p">(</span><span class="n">MessageProcessor</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<span class="c1"># FIXME: Maybe these should be just called MessageProcessor?</span>
-
-<div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>  <span class="c1"># FIXME: name better and move elsewhere</span>
-    <span class="sd">&quot;&quot;&quot;Abstract base class for Interface Message Processors (IMPs).</span>
-
-<span class="sd">    Sub-classes should be implemented for each payment scheme to do</span>
-<span class="sd">    the processing according to what a scheme needs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># FIXME: Should the processor be initiated with the incoming</span>
-    <span class="c1"># message instead of passing the messages to each method? That</span>
-    <span class="c1"># would be a more logical paradigm.</span>
-
-
-    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
-    <span class="k">def</span> <span class="nf">scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the processor&#39;s supported scheme.&quot;&quot;&quot;</span>
-        <span class="k">pass</span>
-
-<div class="viewcode-block" id="Processor.can_process"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.Processor.can_process">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">can_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Can this message processor handle the message scheme?&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="Processor.validate_message"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.Processor.validate_message">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">validate_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Run schema validation on a message received or sent.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="Processor.debulk_message"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.Processor.debulk_message">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">debulk_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Split a message into single payments.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="Processor.create_payments"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.Processor.create_payments">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">create_payments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payments</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create payments from a debulked message.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
-
-
-<div class="viewcode-block" id="SEPAProcessor"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.SEPAProcessor">[docs]</a><span class="k">class</span> <span class="nc">SEPAProcessor</span><span class="p">(</span><span class="n">Processor</span><span class="p">):</span>
-    <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="SCTSEPAProcessor"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.SCTSEPAProcessor">[docs]</a><span class="k">class</span> <span class="nc">SCTSEPAProcessor</span><span class="p">(</span><span class="n">SEPAProcessor</span><span class="p">):</span>  <span class="c1"># FIXME: unreadable class name</span>
+<div class="viewcode-block" id="SCTSEPAProcessor"><a class="viewcode-back" href="../../api/impsepa.html#impsepa.processors.SCTSEPAProcessor">[docs]</a><span class="k">class</span> <span class="nc">SCTSEPAProcessor</span><span class="p">(</span><span class="n">SEPAProcessor</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;eu.sepa.sct&quot;</span>
@@ -243,7 +202,7 @@
         <span class="c1"># Load the schema</span>
         <span class="n">xsdfile</span> <span class="o">=</span> <span class="n">SCHEMAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">msgtype</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">xsdfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ProcessorError</span><span class="p">(</span><span class="s2">&quot;Message type not supported: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="n">MessageProcessorError</span><span class="p">(</span><span class="s2">&quot;Message type not supported: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">message</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">msgtype</span><span class="p">))</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">xsdfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">xsdfd</span><span class="p">:</span>
             <span class="n">xmlschema_doc</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xsdfd</span><span class="p">)</span>
@@ -254,7 +213,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">xmlschema</span><span class="o">.</span><span class="n">assertValid</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">etree</span><span class="o">.</span><span class="n">DocumentInvalid</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ProcessorError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">MessageProcessorError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># valid message</span></div>
 

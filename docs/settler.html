@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -97,9 +97,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -167,7 +169,29 @@
             
   <div class="section" id="settler">
 <h1>Settler<a class="headerlink" href="#settler" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘settler’ app is left as future work.</p>
+<p>The Settler component supports the Router component in effecting the
+settlements for payments cleared in the Clearer component. Each
+payment transaction is settled individually against settlement
+accounts maintained in the Ledger component for PSPs and PSUs
+connected to a Tapestry instance. As each payment transaction is
+individually cleared and settled in real-time the paradigm for
+settlements is RTGS.</p>
+<p>When the Router has resolved the sending and receiving PSPs of a
+payment transaction through a call to the Clearer, the Router must
+effect the settlement of the payment transaction. This is done through
+a call to the Settler. As parameters of the call the Settler receives,
+at minimum, an amount and the settlement accounts to debit (sending
+PSP’s account) and credit (receiving PSP’s account). The Settler in
+turn leverages the Ledger component to record the settlement of the
+payment transaction.</p>
+<p>The API the Settler provides to the Router for is modelled after the
+Y-Copy service of the SWIFT FIN network. A synchronous authorisation
+request is sent from the Router to the Settler. If the sending PSP has
+sufficient balance on their settlement account, the payment
+transaction between the sending and receiving PSPs is recorded, and a
+successful authorisation response is returned. If settlement account
+balance of the sending PSP is insufficient, the settlement of the
+payment transaction is declined.</p>
 </div>
 
 

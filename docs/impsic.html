@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="imp8583.html" />
+    <link rel="next" title="8583 IMP" href="imp8583.html" />
     <link rel="prev" title="SEPA IMP" href="impsepa.html" /> 
 </head>
 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -97,9 +97,16 @@
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SIC IMP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SIC IMP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#payments-in-switzerland">Payments in Switzerland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-sic-credit-transfer-support">Implementing SIC credit transfer support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-swiss-direct-debit-support">Implementing Swiss direct debit support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -167,7 +174,75 @@
             
   <div class="section" id="sic-imp">
 <h1>SIC IMP<a class="headerlink" href="#sic-imp" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘impsic’ app is left as future work.</p>
+<p>The SIC IMP provides an Interface Message Processor (IMP)
+implementation for the credit transfer schemes of Swiss Interbank
+Clearing (SIC) in CHF. Support is also provided for the EuroSIC
+facility operated by the Swiss Euro Clearing Bank (SECB) for SEPA
+compliant payments in EUR.</p>
+<p>Only SIC and EuroSIC credit transfer support is envisioned. Direct
+debits are thus excluded from the scope.</p>
+<div class="section" id="payments-in-switzerland">
+<h2>Payments in Switzerland<a class="headerlink" href="#payments-in-switzerland" title="Permalink to this headline">¶</a></h2>
+<p>Switzerland presents a case of a jurisdiction and a payments market
+that is partially integrated with the payments in the EU/EEA. While
+Switzerland is not an EU or EEA member, it is bound to the EU single
+market via a web of bilateral agreements. As a non-EEA member,
+Switzerland does not adopt EU legislation and has not developed a
+legislative framework for payment services that would be harmonised
+with the EU framework.</p>
+<p>By virtue of geography and trade relations, however, the euro is
+widely used in Swiss international trade along with the domestic
+currency, the Swiss franc (CHF). Switzerland is also a participant of
+the Single Euro Payment Area (SEPA) payment schemes.</p>
+<p>For payments in CHF, a single hybrid RTGS-DTNS system, the SIC (Swiss
+Interbank Clearing), is operated by a private sector entity, the SIX
+Group (SIX), on behalf of the Swiss National Bank (SNB), the central
+bank. Liechtenstein, an EEA member, shares the CHF as a national
+currency with Switzerland and participates in the SIC and EuroSIC
+systems.</p>
+<p>For payments in EUR, Switzerland is a participant in SEPA for the
+European Payments Council (EPC) payment schemes and payment
+instruments. PSPs domiciled in Switzerland are eligible to participate
+in the SEPA schemes and process EUR payments. To streamline access to
+the SEPA infrastructures, the SECB operates the EuroSIC payment system
+for SEPA Credit Transfer (SCT) payments.</p>
+<p>The SIC system has completed migration to ISO 20022 standards and
+broadly uses the same payment messages as the SEPA Credit Transfer
+(SCT) payment scheme from the EPC. The EuroSIC system uses the SEPA
+payment schemes as is.</p>
+<p>New versions of interbank implementation guidelines (IG) are released
+for SIC annually in November. These Swiss Payment Standards, which are
+supported by all Swiss financial institutions, are based upon the
+basic documentation issued by the ISO and the EPC and are reflected in
+the two rulebooks, the “Swiss Business Rules” and the “Swiss
+Implementation Guidelines”.</p>
+<p>Routing and reach information for SIC is provided by a “bank master”
+database published b SIX. Different versions, including a JSON
+download, are available for public access. Only one CSM is available
+making routing decisions straightforward.</p>
+<p>Connectivity is available via three channels: via a “messaging
+gateway” with two alternative commercial operators, via SWIFT or via a
+web portal. Multiple vendors offer messaging gateway compliant
+software that a PSP can operate internally or via a service bureau.</p>
+</div>
+<div class="section" id="implementing-sic-credit-transfer-support">
+<h2>Implementing SIC credit transfer support<a class="headerlink" href="#implementing-sic-credit-transfer-support" title="Permalink to this headline">¶</a></h2>
+<p>Support for EuroSIC in Tapestry is available directly through the SEPA
+IMP. For SIC support, some rudimentary implementation work has been
+done. More complete SIC support would ideally be based on the SEPA IMP
+or a shared ISO 20022 credit transfers base IMP. The data elements in
+SIC and SEPA SCT are rather similar and would support code sharing.</p>
+<p>A mapping between SIC and SEPA SCT ISO 20022 message types and
+versions is included in the Tapestry code.</p>
+</div>
+<div class="section" id="implementing-swiss-direct-debit-support">
+<h2>Implementing Swiss direct debit support<a class="headerlink" href="#implementing-swiss-direct-debit-support" title="Permalink to this headline">¶</a></h2>
+<p>Currently, Tapestry does not have direct debit support. To add support
+for Swiss direct debit payment schemes, the SEPA IMP would initially
+need to be upgraded to support the SEPA Direct Debit (SDD) payment
+schemes. Then, the Swiss LSV+ (akin to SDD Core) and BDD (akin to SDD
+B2B) could be added based on the SEPA SDD implementation.</p>
+</div>
 </div>
 
 
@@ -178,7 +253,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="imp8583.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="imp8583.html" class="btn btn-neutral float-right" title="8583 IMP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="impsepa.html" class="btn btn-neutral float-left" title="SEPA IMP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -85,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -95,10 +95,11 @@
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8585 IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -192,17 +193,17 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.models.Account">Account (class in settler.models)</a>
+      <li><a href="api/ledger.html#ledger.models.Account">Account (class in ledger.models)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.account">account (settler.models.Transfer attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.account">account (ledger.models.Transfer attribute)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Account.DoesNotExist">Account.DoesNotExist</a>
+      <li><a href="api/ledger.html#ledger.models.Account.DoesNotExist">Account.DoesNotExist</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Account.MultipleObjectsReturned">Account.MultipleObjectsReturned</a>
+      <li><a href="api/ledger.html#ledger.models.Account.MultipleObjectsReturned">Account.MultipleObjectsReturned</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.account_id">account_id (settler.models.Transfer attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.account_id">account_id (ledger.models.Transfer attribute)</a>
 </li>
-      <li><a href="api/settler.html#settler.admin.AccountAdmin">AccountAdmin (class in settler.admin)</a>
+      <li><a href="api/ledger.html#ledger.admin.AccountAdmin">AccountAdmin (class in ledger.admin)</a>
 </li>
       <li><a href="api/clearer.management.commands.html#clearer.management.commands.receive_payment.Command.add_arguments">add_arguments() (clearer.management.commands.receive_payment.Command method)</a>
 
@@ -224,12 +225,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.models.TransactionManager.add_transaction">add_transaction() (settler.models.TransactionManager method)</a>
+      <li><a href="api/ledger.html#ledger.models.TransactionManager.add_transaction">add_transaction() (ledger.models.TransactionManager method)</a>
 </li>
       <li><a href="api/impsepa.management.commands.html#impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02.amount">amount (impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02 attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Transfer.amount">(settler.models.Transfer attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transfer.amount">(ledger.models.Transfer attribute)</a>
 </li>
       </ul></li>
       <li><a href="api/settler.html#settler.services.AuthorisationService">AuthorisationService (class in settler.services)</a>
@@ -248,7 +249,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.admin.AccountAdmin.balance">balance() (settler.admin.AccountAdmin method)</a>
+      <li><a href="api/ledger.html#ledger.admin.AccountAdmin.balance">balance() (ledger.admin.AccountAdmin method)</a>
 </li>
       <li><a href="api/router.html#router.forms.SepaRouteForm.base_fields">base_fields (router.forms.SepaRouteForm attribute)</a>
 </li>
@@ -264,12 +265,8 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor.can_process">can_process() (impsepa.processors.Processor method)</a>
-
-      <ul>
-        <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.can_process">(impsepa.processors.SCTSEPAProcessor method)</a>
+      <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.can_process">can_process() (impsepa.processors.SCTSEPAProcessor method)</a>
 </li>
-      </ul></li>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.CECB">CECB (impsepa.constants.SepaCsm attribute)</a>
 </li>
       <li>
@@ -370,12 +367,8 @@
       </ul></li>
       <li><a href="api/clearer.management.commands.html#clearer.management.commands.routing_daemon.Command.RoutingService">Command.RoutingService (class in clearer.management.commands.routing_daemon)</a>
 </li>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor.create_payments">create_payments() (impsepa.processors.Processor method)</a>
-
-      <ul>
-        <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.create_payments">(impsepa.processors.SCTSEPAProcessor method)</a>
+      <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.create_payments">create_payments() (impsepa.processors.SCTSEPAProcessor method)</a>
 </li>
-      </ul></li>
       <li><a href="api/impsepa.management.commands.html#impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02.creditor_bic">creditor_bic (impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02 attribute)</a>
 </li>
       <li><a href="api/impsepa.management.commands.html#impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02.creditor_iban">creditor_iban (impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02 attribute)</a>
@@ -387,9 +380,9 @@
       <li><a href="api/impsepa.management.commands.html#impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02.currency">currency (impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02 attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Account.currency">(settler.models.Account attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Account.currency">(ledger.models.Account attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transaction.currency">(settler.models.Transaction attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transaction.currency">(ledger.models.Transaction attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -404,17 +397,15 @@
 </li>
       <li><a href="api/impsepa.management.commands.html#impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02.debtor_iban">debtor_iban (impsepa.management.commands.sepa_ingress.FIToFICustomerCreditTransferV02 attribute)</a>
 </li>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor.debulk_message">debulk_message() (impsepa.processors.Processor method)</a>
-
-      <ul>
-        <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.debulk_message">(impsepa.processors.SCTSEPAProcessor method)</a>
+      <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.debulk_message">debulk_message() (impsepa.processors.SCTSEPAProcessor method)</a>
 </li>
-      </ul></li>
       <li><a href="api/router.html#router.forms.SepaRouteForm.declared_fields">declared_fields (router.forms.SepaRouteForm attribute)</a>
 </li>
-      <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.dependencies">dependencies (router.migrations.0001_initial.Migration attribute)</a>
+      <li><a href="api/ledger.migrations.html#ledger.migrations.0001_initial.Migration.dependencies">dependencies (ledger.migrations.0001_initial.Migration attribute)</a>
 
       <ul>
+        <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.dependencies">(router.migrations.0001_initial.Migration attribute)</a>
+</li>
         <li><a href="api/router.migrations.html#router.migrations.0002_auto_20201003_1926.Migration.dependencies">(router.migrations.0002_auto_20201003_1926.Migration attribute)</a>
 </li>
         <li><a href="api/router.migrations.html#router.migrations.0003_auto_20201003_2000.Migration.dependencies">(router.migrations.0003_auto_20201003_2000.Migration attribute)</a>
@@ -431,15 +422,17 @@
 </li>
         <li><a href="api/settler.migrations.html#settler.migrations.0005_auto_20200921_1945.Migration.dependencies">(settler.migrations.0005_auto_20200921_1945.Migration attribute)</a>
 </li>
+        <li><a href="api/settler.migrations.html#settler.migrations.0006_auto_20201128_2245.Migration.dependencies">(settler.migrations.0006_auto_20201128_2245.Migration attribute)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.models.Account.description">description (settler.models.Account attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.description">description (ledger.models.Account attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Transaction.description">(settler.models.Transaction attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transaction.description">(ledger.models.Transaction attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transfer.description">(settler.models.Transfer attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transfer.description">(ledger.models.Transfer attribute)</a>
 </li>
       </ul></li>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.DIAS">DIAS (impsepa.constants.SepaCsm attribute)</a>
@@ -500,7 +493,7 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.models.Account.get_balance">get_balance() (settler.models.Account method)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.get_balance">get_balance() (ledger.models.Account method)</a>
 </li>
       <li><a href="api/router.html#router.models.SepaRoute.get_psp_country_display">get_psp_country_display() (router.models.SepaRoute method)</a>
 </li>
@@ -518,7 +511,7 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.models.Account.handle">handle (settler.models.Account attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.handle">handle (ledger.models.Account attribute)</a>
 </li>
       <li><a href="api/clearer.management.commands.html#clearer.management.commands.receive_payment.Command.handle">handle() (clearer.management.commands.receive_payment.Command method)</a>
 
@@ -574,14 +567,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.IBPA">IBPA (impsepa.constants.SepaCsm attribute)</a>
 </li>
-      <li><a href="api/router.html#router.models.SepaRoute.id">id (router.models.SepaRoute attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.id">id (ledger.models.Account attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Account.id">(settler.models.Account attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transaction.id">(ledger.models.Transaction attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transaction.id">(settler.models.Transaction attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transfer.id">(ledger.models.Transfer attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transfer.id">(settler.models.Transfer attribute)</a>
+        <li><a href="api/router.html#router.models.SepaRoute.id">(router.models.SepaRoute attribute)</a>
 </li>
       </ul></li>
       <li>
@@ -653,13 +646,15 @@
 </li>
       <li><a href="api/router.html#router.models.SepaRoute.ReachabilityChoice.INDIRECT">INDIRECT (router.models.SepaRoute.ReachabilityChoice attribute)</a>
 </li>
-      <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.initial">initial (router.migrations.0001_initial.Migration attribute)</a>
+      <li><a href="api/ledger.migrations.html#ledger.migrations.0001_initial.Migration.initial">initial (ledger.migrations.0001_initial.Migration attribute)</a>
 
       <ul>
+        <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.initial">(router.migrations.0001_initial.Migration attribute)</a>
+</li>
         <li><a href="api/settler.migrations.html#settler.migrations.0001_initial.Migration.initial">(settler.migrations.0001_initial.Migration attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/settler.html#settler.admin.TransactionAdmin.inlines">inlines (settler.admin.TransactionAdmin attribute)</a>
+      <li><a href="api/ledger.html#ledger.admin.TransactionAdmin.inlines">inlines (ledger.admin.TransactionAdmin attribute)</a>
 </li>
       <li><a href="api/router.html#router.models.SepaRoute.intermediary_bic">intermediary_bic (router.models.SepaRoute attribute)</a>
 </li>
@@ -706,6 +701,13 @@
 </li>
       </ul></li>
       <li>
+    ledger.migrations.0001_initial
+
+      <ul>
+        <li><a href="api/ledger.migrations.html#module-ledger.migrations.0001_initial">module</a>
+</li>
+      </ul></li>
+      <li>
     ledger.models
 
       <ul>
@@ -730,18 +732,18 @@
       </ul></li>
       <li><a href="api/ledger.html#ledger.apps.LedgerConfig">LedgerConfig (class in ledger.apps)</a>
 </li>
-      <li><a href="api/router.html#router.admin.SepaRouteAdmin.list_display">list_display (router.admin.SepaRouteAdmin attribute)</a>
+      <li><a href="api/ledger.html#ledger.admin.AccountAdmin.list_display">list_display (ledger.admin.AccountAdmin attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.admin.AccountAdmin.list_display">(settler.admin.AccountAdmin attribute)</a>
+        <li><a href="api/ledger.html#ledger.admin.TransactionAdmin.list_display">(ledger.admin.TransactionAdmin attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.admin.TransactionAdmin.list_display">(settler.admin.TransactionAdmin attribute)</a>
+        <li><a href="api/router.html#router.admin.SepaRouteAdmin.list_display">(router.admin.SepaRouteAdmin attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/router.html#router.admin.SepaRouteAdmin.list_filter">list_filter (router.admin.SepaRouteAdmin attribute)</a>
+      <li><a href="api/ledger.html#ledger.admin.AccountAdmin.list_filter">list_filter (ledger.admin.AccountAdmin attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.admin.AccountAdmin.list_filter">(settler.admin.AccountAdmin attribute)</a>
+        <li><a href="api/router.html#router.admin.SepaRouteAdmin.list_filter">(router.admin.SepaRouteAdmin attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -759,21 +761,23 @@
         <li><a href="api/manage.html#module-manage">module</a>
 </li>
       </ul></li>
-      <li><a href="api/router.html#router.admin.SepaRouteAdmin.media">media() (router.admin.SepaRouteAdmin property)</a>
+      <li><a href="api/ledger.html#ledger.admin.AccountAdmin.media">media() (ledger.admin.AccountAdmin property)</a>
 
       <ul>
+        <li><a href="api/ledger.html#ledger.admin.TransactionAdmin.media">(ledger.admin.TransactionAdmin property)</a>
+</li>
+        <li><a href="api/ledger.html#ledger.admin.TransferInline.media">(ledger.admin.TransferInline property)</a>
+</li>
+        <li><a href="api/router.html#router.admin.SepaRouteAdmin.media">(router.admin.SepaRouteAdmin property)</a>
+</li>
         <li><a href="api/router.html#router.forms.SepaRouteForm.media">(router.forms.SepaRouteForm property)</a>
 </li>
-        <li><a href="api/settler.html#settler.admin.AccountAdmin.media">(settler.admin.AccountAdmin property)</a>
-</li>
-        <li><a href="api/settler.html#settler.admin.TransactionAdmin.media">(settler.admin.TransactionAdmin property)</a>
-</li>
-        <li><a href="api/settler.html#settler.admin.TransferInline.media">(settler.admin.TransferInline property)</a>
-</li>
       </ul></li>
-      <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration">Migration (class in router.migrations.0001_initial)</a>
+      <li><a href="api/ledger.migrations.html#ledger.migrations.0001_initial.Migration">Migration (class in ledger.migrations.0001_initial)</a>
 
       <ul>
+        <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration">(class in router.migrations.0001_initial)</a>
+</li>
         <li><a href="api/router.migrations.html#router.migrations.0002_auto_20201003_1926.Migration">(class in router.migrations.0002_auto_20201003_1926)</a>
 </li>
         <li><a href="api/router.migrations.html#router.migrations.0003_auto_20201003_2000.Migration">(class in router.migrations.0003_auto_20201003_2000)</a>
@@ -790,11 +794,13 @@
 </li>
         <li><a href="api/settler.migrations.html#settler.migrations.0005_auto_20200921_1945.Migration">(class in settler.migrations.0005_auto_20200921_1945)</a>
 </li>
+        <li><a href="api/settler.migrations.html#settler.migrations.0006_auto_20201128_2245.Migration">(class in settler.migrations.0006_auto_20201128_2245)</a>
+</li>
       </ul></li>
-      <li><a href="api/router.html#router.forms.SepaRouteForm.Meta.model">model (router.forms.SepaRouteForm.Meta attribute)</a>
+      <li><a href="api/ledger.html#ledger.admin.TransferInline.model">model (ledger.admin.TransferInline attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.admin.TransferInline.model">(settler.admin.TransferInline attribute)</a>
+        <li><a href="api/router.html#router.forms.SepaRouteForm.Meta.model">(router.forms.SepaRouteForm.Meta attribute)</a>
 </li>
       </ul></li>
       <li>
@@ -847,6 +853,8 @@
 </li>
         <li><a href="api/ledger.migrations.html#module-ledger.migrations">ledger.migrations</a>
 </li>
+        <li><a href="api/ledger.migrations.html#module-ledger.migrations.0001_initial">ledger.migrations.0001_initial</a>
+</li>
         <li><a href="api/ledger.html#module-ledger.models">ledger.models</a>
 </li>
         <li><a href="api/ledger.html#module-ledger.tests">ledger.tests</a>
@@ -887,8 +895,6 @@
 </li>
         <li><a href="api/settler.html#module-settler">settler</a>
 </li>
-        <li><a href="api/settler.html#module-settler.admin">settler.admin</a>
-</li>
         <li><a href="api/settler.html#module-settler.apps">settler.apps</a>
 </li>
         <li><a href="api/settler.management.html#module-settler.management">settler.management</a>
@@ -910,6 +916,8 @@
         <li><a href="api/settler.migrations.html#module-settler.migrations.0004_auto_20200921_1937">settler.migrations.0004_auto_20200921_1937</a>
 </li>
         <li><a href="api/settler.migrations.html#module-settler.migrations.0005_auto_20200921_1945">settler.migrations.0005_auto_20200921_1945</a>
+</li>
+        <li><a href="api/settler.migrations.html#module-settler.migrations.0006_auto_20201128_2245">settler.migrations.0006_auto_20201128_2245</a>
 </li>
         <li><a href="api/settler.html#module-settler.models">settler.models</a>
 </li>
@@ -952,19 +960,21 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/router.html#router.models.SepaRoute.objects">objects (router.models.SepaRoute attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.objects">objects (ledger.models.Account attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Account.objects">(settler.models.Account attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transaction.objects">(ledger.models.Transaction attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transaction.objects">(settler.models.Transaction attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transfer.objects">(ledger.models.Transfer attribute)</a>
 </li>
-        <li><a href="api/settler.html#settler.models.Transfer.objects">(settler.models.Transfer attribute)</a>
+        <li><a href="api/router.html#router.models.SepaRoute.objects">(router.models.SepaRoute attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.operations">operations (router.migrations.0001_initial.Migration attribute)</a>
+      <li><a href="api/ledger.migrations.html#ledger.migrations.0001_initial.Migration.operations">operations (ledger.migrations.0001_initial.Migration attribute)</a>
 
       <ul>
+        <li><a href="api/router.migrations.html#router.migrations.0001_initial.Migration.operations">(router.migrations.0001_initial.Migration attribute)</a>
+</li>
         <li><a href="api/router.migrations.html#router.migrations.0002_auto_20201003_1926.Migration.operations">(router.migrations.0002_auto_20201003_1926.Migration attribute)</a>
 </li>
         <li><a href="api/router.migrations.html#router.migrations.0003_auto_20201003_2000.Migration.operations">(router.migrations.0003_auto_20201003_2000.Migration attribute)</a>
@@ -981,6 +991,8 @@
 </li>
         <li><a href="api/settler.migrations.html#settler.migrations.0005_auto_20200921_1945.Migration.operations">(settler.migrations.0005_auto_20200921_1945.Migration attribute)</a>
 </li>
+        <li><a href="api/settler.migrations.html#settler.migrations.0006_auto_20201128_2245.Migration.operations">(settler.migrations.0006_auto_20201128_2245.Migration attribute)</a>
+</li>
       </ul></li>
   </ul></td>
 </tr></table>
@@ -994,13 +1006,9 @@
 </li>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.PBSD">PBSD (impsepa.constants.SepaCsm attribute)</a>
 </li>
-      <li><a href="api/router.html#router.models.SepaRoute.preferred_route">preferred_route (router.models.SepaRoute attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor">Processor (class in impsepa.processors)</a>
-</li>
-      <li><a href="api/impsepa.html#impsepa.processors.ProcessorError">ProcessorError</a>
+      <li><a href="api/router.html#router.models.SepaRoute.preferred_route">preferred_route (router.models.SepaRoute attribute)</a>
 </li>
       <li><a href="api/router.html#router.models.SepaRoute.psp_city">psp_city (router.models.SepaRoute attribute)</a>
 </li>
@@ -1161,12 +1169,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/router.html#router.models.SepaRoute.scheme">scheme (router.models.SepaRoute attribute)</a>
 </li>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor.scheme">scheme() (impsepa.processors.Processor property)</a>
-
-      <ul>
-        <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.scheme">(impsepa.processors.SCTSEPAProcessor property)</a>
+      <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.scheme">scheme() (impsepa.processors.SCTSEPAProcessor property)</a>
 </li>
-      </ul></li>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.SCTI">SCTI (impsepa.constants.SepaCsm attribute)</a>
 </li>
       <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor">SCTSEPAProcessor (class in impsepa.processors)</a>
@@ -1197,13 +1201,6 @@
 </li>
       </ul></li>
       <li>
-    settler.admin
-
-      <ul>
-        <li><a href="api/settler.html#module-settler.admin">module</a>
-</li>
-      </ul></li>
-      <li>
     settler.apps
 
       <ul>
@@ -1231,8 +1228,6 @@
         <li><a href="api/settler.management.commands.html#module-settler.management.commands.add_transaction">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     settler.management.commands.dump_accounts
 
@@ -1247,6 +1242,8 @@
         <li><a href="api/settler.migrations.html#module-settler.migrations">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     settler.migrations.0001_initial
 
@@ -1280,6 +1277,13 @@
 
       <ul>
         <li><a href="api/settler.migrations.html#module-settler.migrations.0005_auto_20200921_1945">module</a>
+</li>
+      </ul></li>
+      <li>
+    settler.migrations.0006_auto_20201128_2245
+
+      <ul>
+        <li><a href="api/settler.migrations.html#module-settler.migrations.0006_auto_20201128_2245">module</a>
 </li>
       </ul></li>
       <li>
@@ -1331,35 +1335,35 @@
       </ul></li>
       <li><a href="api/impsepa.html#impsepa.constants.SepaCsm.TIPS">TIPS (impsepa.constants.SepaCsm attribute)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transaction">Transaction (class in settler.models)</a>
+      <li><a href="api/ledger.html#ledger.models.Transaction">Transaction (class in ledger.models)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.transaction">transaction (settler.models.Transfer attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.transaction">transaction (ledger.models.Transfer attribute)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transaction.DoesNotExist">Transaction.DoesNotExist</a>
+      <li><a href="api/ledger.html#ledger.models.Transaction.DoesNotExist">Transaction.DoesNotExist</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transaction.MultipleObjectsReturned">Transaction.MultipleObjectsReturned</a>
+      <li><a href="api/ledger.html#ledger.models.Transaction.MultipleObjectsReturned">Transaction.MultipleObjectsReturned</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.transaction_id">transaction_id (settler.models.Transfer attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.transaction_id">transaction_id (ledger.models.Transfer attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/settler.html#settler.admin.TransactionAdmin">TransactionAdmin (class in settler.admin)</a>
+      <li><a href="api/ledger.html#ledger.admin.TransactionAdmin">TransactionAdmin (class in ledger.admin)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.TransactionManager">TransactionManager (class in settler.models)</a>
+      <li><a href="api/ledger.html#ledger.models.TransactionManager">TransactionManager (class in ledger.models)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer">Transfer (class in settler.models)</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer">Transfer (class in ledger.models)</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.DoesNotExist">Transfer.DoesNotExist</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.DoesNotExist">Transfer.DoesNotExist</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Transfer.MultipleObjectsReturned">Transfer.MultipleObjectsReturned</a>
+      <li><a href="api/ledger.html#ledger.models.Transfer.MultipleObjectsReturned">Transfer.MultipleObjectsReturned</a>
 </li>
-      <li><a href="api/settler.html#settler.models.Account.transfer_set">transfer_set (settler.models.Account attribute)</a>
+      <li><a href="api/ledger.html#ledger.models.Account.transfer_set">transfer_set (ledger.models.Account attribute)</a>
 
       <ul>
-        <li><a href="api/settler.html#settler.models.Transaction.transfer_set">(settler.models.Transaction attribute)</a>
+        <li><a href="api/ledger.html#ledger.models.Transaction.transfer_set">(ledger.models.Transaction attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/settler.html#settler.admin.TransferInline">TransferInline (class in settler.admin)</a>
+      <li><a href="api/ledger.html#ledger.admin.TransferInline">TransferInline (class in ledger.admin)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1383,14 +1387,10 @@
 </li>
       <li><a href="api/router.html#router.models.SepaRoute.valid_to">valid_to (router.models.SepaRoute attribute)</a>
 </li>
-      <li><a href="api/impsepa.html#impsepa.processors.Processor.validate_message">validate_message() (impsepa.processors.Processor method)</a>
-
-      <ul>
-        <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.validate_message">(impsepa.processors.SCTSEPAProcessor method)</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/impsepa.html#impsepa.processors.SCTSEPAProcessor.validate_message">validate_message() (impsepa.processors.SCTSEPAProcessor method)</a>
+</li>
       <li><a href="api/clearer.html#clearer.apps.ClearerConfig.verbose_name">verbose_name (clearer.apps.ClearerConfig attribute)</a>
 
       <ul>

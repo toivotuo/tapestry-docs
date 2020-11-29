@@ -80,9 +80,26 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents</span></p>
+              <p class="caption"><span class="caption-text">System overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running.html">Running the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">System design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../related-work.html">Related work</a></li>
+</ul>
+<p class="caption"><span class="caption-text">System modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../clearer.html">Clearer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settler.html">Settler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ledger.html">Ledger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../imp.html">IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impsepa.html">SEPA IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -295,51 +312,6 @@ format.</p>
 <div class="section" id="module-impsepa.processors">
 <span id="impsepa-processors-module"></span><h2>impsepa.processors module<a class="headerlink" href="#module-impsepa.processors" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="impsepa.processors.Processor">
-<em class="property">class </em><code class="sig-prename descclassname">impsepa.processors.</code><code class="sig-name descname">Processor</code><a class="reference internal" href="../_modules/impsepa/processors.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.Processor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base class for Interface Message Processors (IMPs).</p>
-<p>Sub-classes should be implemented for each payment scheme to do
-the processing according to what a scheme needs.</p>
-<dl class="py method">
-<dt id="impsepa.processors.Processor.can_process">
-<em class="property">abstract </em><code class="sig-name descname">can_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">fex.models.Message</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/impsepa/processors.html#Processor.can_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.Processor.can_process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Can this message processor handle the message scheme?</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="impsepa.processors.Processor.create_payments">
-<em class="property">abstract </em><code class="sig-name descname">create_payments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">payments</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/impsepa/processors.html#Processor.create_payments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.Processor.create_payments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create payments from a debulked message.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="impsepa.processors.Processor.debulk_message">
-<em class="property">abstract </em><code class="sig-name descname">debulk_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">fex.models.Message</span></em><span class="sig-paren">)</span> &#x2192; list<a class="reference internal" href="../_modules/impsepa/processors.html#Processor.debulk_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.Processor.debulk_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Split a message into single payments.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="impsepa.processors.Processor.scheme">
-<em class="property">abstract property </em><code class="sig-name descname">scheme</code><a class="headerlink" href="#impsepa.processors.Processor.scheme" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the processor’s supported scheme.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="impsepa.processors.Processor.validate_message">
-<em class="property">abstract </em><code class="sig-name descname">validate_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="p">:</span> <span class="n">fex.models.Message</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/impsepa/processors.html#Processor.validate_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.Processor.validate_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run schema validation on a message received or sent.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py exception">
-<dt id="impsepa.processors.ProcessorError">
-<em class="property">exception </em><code class="sig-prename descclassname">impsepa.processors.</code><code class="sig-name descname">ProcessorError</code><a class="reference internal" href="../_modules/impsepa/processors.html#ProcessorError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.ProcessorError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-</dd></dl>
-
-<dl class="py class">
 <dt id="impsepa.processors.SCTSEPAProcessor">
 <em class="property">class </em><code class="sig-prename descclassname">impsepa.processors.</code><code class="sig-name descname">SCTSEPAProcessor</code><a class="reference internal" href="../_modules/impsepa/processors.html#SCTSEPAProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.SCTSEPAProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#impsepa.processors.SEPAProcessor" title="impsepa.processors.SEPAProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">impsepa.processors.SEPAProcessor</span></code></a></p>
@@ -378,7 +350,7 @@ the processing according to what a scheme needs.</p>
 <dl class="py class">
 <dt id="impsepa.processors.SEPAProcessor">
 <em class="property">class </em><code class="sig-prename descclassname">impsepa.processors.</code><code class="sig-name descname">SEPAProcessor</code><a class="reference internal" href="../_modules/impsepa/processors.html#SEPAProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#impsepa.processors.SEPAProcessor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#impsepa.processors.Processor" title="impsepa.processors.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">impsepa.processors.Processor</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tapestry.imp.MessageProcessor</span></code></p>
 </dd></dl>
 
 </div>

@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="File exchanger" href="fex.html" />
+    <link rel="next" title="File Exchanger" href="fex.html" />
     <link rel="prev" title="Router" href="router.html" /> 
 </head>
 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -96,10 +96,15 @@
 <li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ledger</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#models-in-the-ledger">Models in the Ledger</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -167,7 +172,60 @@
             
   <div class="section" id="ledger">
 <h1>Ledger<a class="headerlink" href="#ledger" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘ledger’ app is left as future work.</p>
+<p>The Ledger component provides the facilities for a standard
+double-entry accounting (bookkeeping) system. As payment systems are
+ultimately accounting systems that maintain the obligations between
+PSUs, PSPs and CSMs, the Ledger component is a crucial supporting
+facility for clearing and settlement.</p>
+<p>The Ledger can be used to maintain the settlement accounts for PSPs
+and payment accounts for PSUs connected to a Tapestry instance. The
+Ledger is connected to other components of Tapestry. For example, the
+Settler component posts accounting entries to the Ledger for payment
+transactions settled. Only once the payment transaction is posted in
+the Ledger is it considered settled in Tapestry in its role as a CSM.</p>
+<p>The Ledger can also be used by the Settler component to maintain
+reservations on settlement accounts for PSPs and payment accounts for
+PSUs. The Ledger thus maintains for each account a settled (posted)
+balance as well as a reserved balance. Account reservations instructed
+by the Clearer component are also maintained in the Ledger component.</p>
+<div class="section" id="models-in-the-ledger">
+<h2>Models in the Ledger<a class="headerlink" href="#models-in-the-ledger" title="Permalink to this headline">¶</a></h2>
+<p>The Ledger component includes the minimum set of database models
+required to implement double-entry accounting. The “bookkeeping”
+models are described below.</p>
+<dl class="simple">
+<dt>Account</dt><dd><p>The Account model represents a single account in bookkeeping. An
+Account can represent settlement account for a PSP or a payment
+account for a PSU, or any financial accounts that an entity
+operating Tapestry requires. At minimum an Account has some
+identifying and type information as well as the currency in which
+the account is denominated, but mostly it serves as an object
+containing methods for balance inquiries and balance
+reservations.</p>
+</dd>
+<dt>Transaction</dt><dd><p>The Transaction model represents a posting in an bookkeeping
+journal. At minimum, a Transaction has timestamp information and
+metadata for describing the bookkeeping entry.</p>
+</dd>
+<dt>Transfer</dt><dd><p>The Transfer model represents a single debit or credit on an
+Account. Taken collectively, all Transfers and Accounts make up
+the general ledger (GL) of a bookkeeping system. At minimum, a
+Transfer contains the debit or credit amount as a signed integer
+or a decimal type. Whether an amount is a debit or a credit is
+indicated by the the sign: positive amounts are debits and
+negative amounts are credits. A Transfer has two foreign keys, one
+to the Account on which the debit or credit is posted and another
+to a Transfer that groups two or more Transfers together into a
+single journal entry.</p>
+</dd>
+</dl>
+<p>An important invariant for the consistency of bookkeeping is that the
+debits and credits must always balance, in effect, the sum of debit
+and credit amounts must be zero. This invariant is implemented at the
+Transaction model level where the foreign keys pointing from two or
+more Transfer models to each Transaction must have a zero sum for all
+the Transfer amounts.</p>
+</div>
 </div>
 
 
@@ -178,7 +236,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="fex.html" class="btn btn-neutral float-right" title="File exchanger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="fex.html" class="btn btn-neutral float-right" title="File Exchanger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="router.html" class="btn btn-neutral float-left" title="Router" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

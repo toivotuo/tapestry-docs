@@ -91,7 +91,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">IMPLEMENTATION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -100,8 +100,12 @@
 <li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -168,7 +172,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<span id="tapestry-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>In this section we provide a background of the Tapestry payments
+router prototype, and its objectives. We also briefly discuss payments
+engineering and how it relates to software engineering.</p>
 <div class="section" id="background-and-objectives">
 <h2>Background and objectives<a class="headerlink" href="#background-and-objectives" title="Permalink to this headline">¶</a></h2>
 <p>Tapestry is a set of experiments in developing a multi-scheme
@@ -185,7 +192,7 @@ technology in general and payment systems in particular. The Tapestry
 source code is designed to illustrate concepts in payment systems
 through running code. By exploring and modifying the Tapestry source
 code, a software engineer can develop a more intuitive understanding
-and mental models of how payments work. developing this type of
+and mental models of how payments work. Developing this type of
 understanding with production systems is more difficult due to system
 complexity and often high degree of legacy code. Furthermore, access
 to production payment systems is naturally rather limited unless one
@@ -199,12 +206,12 @@ length in the thesis.</p>
 <div class="section" id="payments-engineering">
 <h2>Payments engineering<a class="headerlink" href="#payments-engineering" title="Permalink to this headline">¶</a></h2>
 <p>Payments engineering has traditionally been, and to a degree still is,
-an opaque area of software engineering. Payment systems - both as
-utilities for bank to bank interactions - and within individual banks
+an opaque area of software engineering. Payment systems, both as
+utilities for bank to bank interactions, and within individual banks
 have been developed as proprietary systems with little public
 documentation available. Access to participate in payment systems as a
 payment service provider has also been limited to only authorised
-credit institutions (banks) and thus the barries for access have been
+credit institutions (banks) and thus the barriers for access have been
 high. Starting in the 2000s and accelerating in the 2010s there has -
 especially in Europe - been a concentrated effort to open access to
 payment systems to new players such as e-money institutions, payment

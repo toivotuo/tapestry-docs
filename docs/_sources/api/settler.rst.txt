@@ -18,14 +18,6 @@ Subpackages
 Submodules
 ----------
 
-settler.admin module
---------------------
-
-.. automodule:: settler.admin
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 settler.apps module
 -------------------
 

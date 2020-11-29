@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SIC IMP" href="impsic.html" />
-    <link rel="prev" title="File exchanger" href="fex.html" /> 
+    <link rel="prev" title="IMP" href="imp.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -97,9 +97,14 @@
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fex.html">File exchanger</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SEPA IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SEPA IMP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#processing-inbound-sepa-sct-payment">Processing inbound SEPA SCT payment</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -167,7 +172,47 @@
             
   <div class="section" id="sepa-imp">
 <h1>SEPA IMP<a class="headerlink" href="#sepa-imp" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘impsepa’ app is left as future work.</p>
+<p>The SEPA IMP provides an Interface Message Processor (IMP)
+implementation for the SEPA (Single Euro Payments Area) payment
+schemes for EUR. Initially, only support for the SEPA Credit Transfer
+(SCT) and SEPA Instant Credit Transfer (SCT Inst) payment schemes is
+envisioned. The SEPA Direct Debit (SDD) payment schemes (Core and B2B)
+are left for future consideration.</p>
+<p>All SEPA payment schemes are defined and managed by the European
+Payments Council (EPC). The payment schemes are based on ISO 20022
+protocols and use XML for the encoding of payment messages. The
+payment scheme standards from the EPC narrow the definitions is ISO
+20022 to suit the use cases of the SEPA payment schemes. For example,
+only EUR is supported as a currency.</p>
+<div class="section" id="processing-inbound-sepa-sct-payment">
+<h2>Processing inbound SEPA SCT payment<a class="headerlink" href="#processing-inbound-sepa-sct-payment" title="Permalink to this headline">¶</a></h2>
+<p>Inbound payment messages in the SEPA SCT payment scheme are expressed
+in the pacs.008 V2 (FIToFICustomerCreditTransfer) ISO 20022 format
+as XML. Note that pacs.008 is used in PSP to PSP payment
+transactions. For payment initiation messages from a PSU to a PSP, a
+pain.001 payment message would be used.</p>
+<p>The following is a rough outline of the steps in the processing of an
+inbound pacs.008 payment message.</p>
+<ol class="arabic simple">
+<li><p>Validate the message against the relevant XML schema. Options
+include using the standard ISO 20022 XML Schema Description (XSD)
+file or the equivalent SCT XSD file from the EPC. If the ISO XSD is
+used, then the SCT validation for currencies and other limitations
+must be done separately.</p></li>
+<li><p>Perform debulking of any payment message file. A pacs.008 may
+contain one or more payment messages. In the Tapestry
+implementation the Router, Clearer and Settler components only
+process a single message at a time in an RTGS-like clearing and
+settlement paradigm.</p></li>
+<li><p>Add a routing header to the extracted payment message that contains
+a single payment transaction only. The routing header follows a
+standard payment scheme independent format that is proprietary to
+Tapestry, but allows the Router to perform payment scheme
+independent routing function.</p></li>
+<li><p>Pass the raw payment message payload with the routing header to the
+Router component for clearing, settlement and further forwarding.</p></li>
+</ol>
+</div>
 </div>
 
 
@@ -181,7 +226,7 @@
         <a href="impsic.html" class="btn btn-neutral float-right" title="SIC IMP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="fex.html" class="btn btn-neutral float-left" title="File exchanger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="imp.html" class="btn btn-neutral float-left" title="IMP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

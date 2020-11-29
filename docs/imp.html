@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Clearer &mdash; Tapestry  documentation</title>
+  <title>IMP &mdash; Tapestry  documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Settler" href="settler.html" />
-    <link rel="prev" title="Related work" href="related-work.html" /> 
+    <link rel="next" title="SEPA IMP" href="impsepa.html" />
+    <link rel="prev" title="File Exchanger" href="fex.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,12 +93,12 @@
 </ul>
 <p class="caption"><span class="caption-text">System modules</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Clearer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clearer.html">Clearer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fex.html">File Exchanger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
@@ -148,13 +148,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Clearer</li>
+      <li>IMP</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/clearer.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/imp.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,25 +167,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="clearer">
-<h1>Clearer<a class="headerlink" href="#clearer" title="Permalink to this headline">¶</a></h1>
-<p>The Clearer component supports the Router component in managing the
-obligations of different PSPs and PSUs in the role of Tapestry as a
-CSM. The Clearer provides real-time clearing against settlements
-accounts maintained for PSPs and PSUs in the Ledger
-component. Settlements are effected through the Settler component by the
-Router.</p>
-<p>The Clearer does not do netting and the clearing and settling paradigm
-is closer to an RTGS than a DTNS. As the clearing and settling
-paradigm is that of an RTGS, the Clearer does clearing on individual
-payment transactions, one at a time. In a DTNS payment system, the
-clearing step has some algorithmic complexity in calculating the
-multilateral net positions between participating PSPs.</p>
-<p>In an RTGS, it is sufficient only to ascertain that the sending PSP
-has sufficient balance. As Tapestry implements an RTGS paradigm most
-of the work of clearing and settlement is done by the Router and
-Settler. The role of the Clearer is limited to looking up the sending
-and receiving PSPs using the routing tables populated by the Router.</p>
+  <div class="section" id="imp">
+<h1>IMP<a class="headerlink" href="#imp" title="Permalink to this headline">¶</a></h1>
+<p>The IMP components provide “interface message processor” services for
+different payment messaging standards. Each IMP component relies on
+the FEX to send and receive payment messages or batches of payment
+messages.</p>
+<p>An IMP is responsible for bulking or debulking payment message batches
+into individual payment messages. The individual payment messages are
+then validated against the protocol supported by each IMP and the
+rules of the payment scheme supported by the IMP. The IMPs implement
+the input and output queues as well as protocol and payment scheme
+validation.</p>
+<p>An IMP is also responsible for extracting the relevant routing
+information like IBAN and BIC or sort code from each single payment
+message and wrapping the payment message with a generic routing
+header. The Router component (through the Clearer and Settler
+components) uses the routing header to implement clearing and
+settlement as well as forwarding a payment message from a sending PSP
+to a receiving PSP.</p>
+<p>Each IMP provides a standard interface for interacting with a the FEX
+for payment message interchange. Likewise, each IMP interacts with the
+interface provided by the Router. The IMP interface is implemented as
+a Python abstract base class, and IMPs for specific payment schemes
+are implemented as sub-classes.</p>
 </div>
 
 
@@ -196,10 +201,10 @@ and receiving PSPs using the routing tables populated by the Router.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="settler.html" class="btn btn-neutral float-right" title="Settler" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="impsepa.html" class="btn btn-neutral float-right" title="SEPA IMP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="related-work.html" class="btn btn-neutral float-left" title="Related work" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="fex.html" class="btn btn-neutral float-left" title="File Exchanger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

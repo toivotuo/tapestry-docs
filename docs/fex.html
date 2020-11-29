@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>File exchanger &mdash; Tapestry  documentation</title>
+  <title>File Exchanger &mdash; Tapestry  documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="SEPA IMP" href="impsepa.html" />
+    <link rel="next" title="IMP" href="imp.html" />
     <link rel="prev" title="Ledger" href="ledger.html" /> 
 </head>
 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Running the code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">System design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implementation.html">System implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="related-work.html">Related work</a></li>
 </ul>
@@ -97,9 +97,11 @@
 <li class="toctree-l1"><a class="reference internal" href="settler.html">Settler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="router.html">Router</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ledger.html">Ledger</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">File exchanger</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File Exchanger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp.html">IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsepa.html">SEPA IMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impsic.html">SIC IMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="imp8583.html">8583 IMP</a></li>
 </ul>
 
             
@@ -146,7 +148,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>File exchanger</li>
+      <li>File Exchanger</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -166,8 +168,31 @@
            <div itemprop="articleBody">
             
   <div class="section" id="file-exchanger">
-<h1>File exchanger<a class="headerlink" href="#file-exchanger" title="Permalink to this headline">¶</a></h1>
-<p>Documenting the ‘fex’ app is left as future work.</p>
+<h1>File Exchanger<a class="headerlink" href="#file-exchanger" title="Permalink to this headline">¶</a></h1>
+<p>The FEX component provides “file exchanger” services and connects a
+PSP or CSM running Tapestry to other PSUs or PSPs acting as customers
+as well as to service provider PSPs and other peer CSMs.</p>
+<p>The FEX sends and receives single payment messages or files containing
+batches of payment messages. Separate transport sub-components of the
+FEX provide transport services over different protocols used for
+payment message exchange.</p>
+<p>Each payment message in the FEX is represented by a Message
+model. Each Message contains source and destination information that
+instructs how a transport sub-component should receive or send payment
+messages. Any payment message received from a PSU, PSP or CSM is
+forwarded to the relevant Tapestry Interface Message Processor (IMP)
+for processing. Similarly, a payment message received from an IMP, is
+sent to a PSU, PSP or CSM.</p>
+<p>A set of configuration files in the YAML format are used as to
+describe the the PSUs, PSPs and CSMs that the FEX exchanges payment
+messages as peers. Also the schedules for file exchange can be
+configured.</p>
+<p>The FEX is designed as extensible so that additional transport modules
+can be added. An example of a transport module would be support for
+<a class="reference external" href="https://www.ebics.org/">EBICS</a>, the file exchange protocol commonly used in Germany, France
+and Switzerland in PSU-PSP scenarios. EBICS is also used for PSP-PSP
+and PSP-CSM file exchanges. Classic payment message exchange using
+SFTP would be another example of an exchange protocol.</p>
 </div>
 
 
@@ -178,7 +203,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="impsepa.html" class="btn btn-neutral float-right" title="SEPA IMP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="imp.html" class="btn btn-neutral float-right" title="IMP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ledger.html" class="btn btn-neutral float-left" title="Ledger" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
